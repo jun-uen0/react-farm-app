@@ -13,15 +13,21 @@ function App() {
   const csrf = useAppSelector(selectCsrfState)
   useEffect(() => {
     console.log("process.env.REACT_APP_API_URL: " + process.env.REACT_APP_API_URL)
-    const getCsrfToken = async () => {
-      const res = await axios.get<CsrfToken>(
-        `${process.env.REACT_APP_API_URL}/csrftoken`
-        // `https://fastapi-amnmmkz.herokuapp.com/api/csrftoken`
-      )
-      axios.defaults.headers.common['X-CSRF-Token'] = res.data.csrf_token
-      console.log("res.data.csrf_token: " + res.data.csrf_token)
+    try {
+      const getCsrfToken = async () => {
+        const res = await axios.get<CsrfToken>(
+          `${process.env.REACT_APP_API_URL}/csrftoken`
+        )
+        axios.defaults.headers.common['X-CSRF-Token'] = res.data.csrf_token
+        console.log("res.data.csrf_token: " + res.data.csrf_token)
+      }
+      getCsrfToken()
+    } catch (err: any) {
+      console.error('Unable to get CSRF token')
+      if(err.response) {
+        console.error('error response: ' + err.response.data)
+      }
     }
-    getCsrfToken()
   }, [csrf])
   return (
     <div>

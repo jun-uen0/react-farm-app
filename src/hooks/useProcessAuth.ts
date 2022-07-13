@@ -15,19 +15,23 @@ export const useProcessAuth = () => {
   const processAuth = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (isLogin) {
-      // execute login mutation by .mutate()
-      loginMutation.mutate({
-        email: email,
-        password: pw,
-      })
+      try {
+        // execute login mutation by .mutate()
+        loginMutation.mutate({
+          email: email,
+          password: pw,
+        })
+      } catch (err) {
+        console.error('Login failed')
+      }
     } else {
       await registerMutation
         .mutateAsync({
           email: email,
           password: pw,
         })
-        // if register succeed, login
         .then(() =>
+        // if register succeed, login
           loginMutation.mutate({
             email: email,
             password: pw,
@@ -37,6 +41,7 @@ export const useProcessAuth = () => {
           // if register failed, initialize email and pw
           setEmail('')
           setPw('')
+          console.error('Register or Login after registeratoin failed')
         })
     }
   }
