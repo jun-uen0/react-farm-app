@@ -11,10 +11,11 @@ export const useMutateAuth = () => {
   const dispatch = useAppDispatch()
 
   const loginMutation = useMutation(
-    async (user: User) =>
+    async (user: User) => {
       await axios.post(`${process.env.REACT_APP_API_URL}/login`, user, {
-        withCredentials: true,
-      }),
+        withCredentials: true, // To use CSRF token storing in cookie
+      })
+    },
     {
       onSuccess: () => {
         navidate('/todo')

@@ -1,9 +1,6 @@
-import { VFC } from 'react'
-import { RefreshIcon } from '@heroicons/react/solid'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { useProcessAuth } from '../hooks/useProcessAuth'
 
-export const Auth: VFC = () => {
+export const Auth: React.FC = () => {
   const {
     pw,
     setPw,
@@ -27,7 +24,6 @@ export const Auth: VFC = () => {
   return (
     <div className="flex justify-center items-center flex-col min-h-screen text-gray-600 font-mono">
       <div className="flex items-center">
-        {/* <BadgeCheckIcon className="h-8 w-8 mr-2 text-blue-500" /> */}
         <span className="text-center text-3xl font-extrabold">
           Login or Register
         </span>
@@ -65,10 +61,13 @@ export const Auth: VFC = () => {
           </button>
         </div>
       </form>
-      <RefreshIcon
+      <button
         onClick={() => setIsLogin(!isLogin)}
-        className="h-2 w-2 my-2 text-blue-500 cursor-pointer"
-      />
+        className="h-4 w-4 my-2 text-black rounded"
+        type="submit"
+      >
+        {isLogin ? 'Switch to Sign Up' : 'Switch to Login'}
+      </button>
     </div>
   )
 }
