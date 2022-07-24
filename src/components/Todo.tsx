@@ -16,10 +16,13 @@ export const Todo: VFC = () => {
   const { data: dataTasks, isLoading: isLoadingTasks } = useQueryTasks() // useQuery return isLoading as boolean
   return (
     <div className="flex justify-center items-center flex-col min-h-screen text-gray-600 font-mono">
-      <LogoutIcon
+      <button
+        value={'logout'}
         onClick={logout}
         className="h-8 w-8 mr-2 text-blue-500"
-      />
+      >
+        Logout
+      </button>
     </div>
   )
 }
